@@ -1,0 +1,95 @@
+.notes-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    font-family: sans-serif;
+  }
+  
+  .notes-title {
+    text-align: center;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .note-input-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .note-input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .note-add-button {
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .note-add-button:hover {
+    background-color: #4338ca;
+  }
+  
+  .note-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .note-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9fafb;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .note-delete-button {
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    color: #ef4444;
+    cursor: pointer;
+  }
+  
+  .note-delete-button:hover {
+    color: #dc2626;
+  }
+
+  .notes-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    font-family: sans-serif;
+    color: #111827; /* dark text */
+  }
+  
+  .notes-title {
+    text-align: center;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: #111827; /* dark title */
+  }
+  
+  .note-item span {
+    color: #111827; /* ensure note content is dark */
+  }
+  

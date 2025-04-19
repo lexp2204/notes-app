@@ -26,3 +26,25 @@ exports.deleteNote= async (req,res)=>{
     )
     res.sendStatus(204);
 }
+
+// update note function
+exports.updateNote = async (req, res) => {
+    const { content } = req.body;
+    const { id } = req.params;
+  
+    try {
+      const result = await pool.query(
+        'UPDATE notes SET content = $1 WHERE id = $2 AND user_id = $3 RETURNING *',
+        [content, id, req.user.id]
+      );
+  
+      if (result.rowCount === 0) {
+        return res.status(404).json({ message: 'Note not found or unauthorized' });
+      }
+  
+      res.json(result.rows[0]);
+    } catch (err) {
+      res.status(500).json({ message: 'Server error' });
+    }
+  };
+  
