@@ -5,6 +5,8 @@ const Notes = () => {
   const [token] = useState(localStorage.getItem('token'));
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
+  const [editingNoteId, setEditingNoteId] = useState(null);
+  const [editedContent, setEditedContent] = useState('');
 
   useEffect(() => {
     axios.get('/notes', {
@@ -27,15 +29,34 @@ const Notes = () => {
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`/notes/${id}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    setNotes(notes.filter(note => note.id !== id));
+    try {
+      await axios.delete(`/notes/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setNotes(notes.filter(note => note.id !== id));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleEdit = async (id) => {
+    try {
+      const res = await axios.put(`/notes/${id}`, { content: editedContent }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setNotes(notes.map(note =>
+        note.id === id ? res.data : note
+      ));
+      setEditingNoteId(null);
+      setEditedContent('');
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    window.location.href = '/'; // 👈 Redirect to login without React Router
+    window.location.href = '/';
   };
 
   return (
@@ -51,8 +72,25 @@ const Notes = () => {
       <ul>
         {notes.map((n) => (
           <li key={n.id}>
-            {n.content}
-            <button onClick={() => handleDelete(n.id)}>🗑️</button>
+            {editingNoteId === n.id ? (
+              <>
+                <input
+                  value={editedContent}
+                  onChange={(e) => setEditedContent(e.target.value)}
+                />
+                <button onClick={() => handleEdit(n.id)}>✅</button>
+                <button onClick={() => setEditingNoteId(null)}>❌</button>
+              </>
+            ) : (
+              <>
+                {n.content}
+                <button onClick={() => {
+                  setEditingNoteId(n.id);
+                  setEditedContent(n.content);
+                }}>✏️</button>
+                <button onClick={() => handleDelete(n.id)}>🗑️</button>
+              </>
+            )}
           </li>
         ))}
       </ul>
